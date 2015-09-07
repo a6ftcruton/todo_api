@@ -5,6 +5,7 @@ gem 'rails-api'
 gem 'spring', :group => :development
 gem 'pg'
 gem 'responders'
+gem 'active_model_serializers'
 
 group :development do
   gem 'pry-rails'
