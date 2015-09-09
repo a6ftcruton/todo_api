@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe TodosController, type: :controller do
+RSpec.describe Api::V1::TodosController, type: :controller do
 
   describe 'GET #index' do
     it 'returns empty array if no todos exist' do
       get :index, format: :json
-      expect(parsed_response_body).to eq([])
+      expect(parsed_response_body["todos"]).to eq([])
     end
 
     it 'fetches all todos' do
       2.times { create(:todo) }
       get :index, format: :json
 
-      expect(parsed_response_body.count).to eq(2)
+      expect(parsed_response_body["todos"].count).to eq(2)
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe TodosController, type: :controller do
       todo  = create(:todo)
       get :show, id: todo, format: :json
 
-      expect(parsed_response_body["id"]).to eq(todo.id)
+      expect(parsed_response_body["todo"]["id"]).to eq(todo.id)
     end
   end
 
@@ -30,7 +30,7 @@ RSpec.describe TodosController, type: :controller do
     it 'creates a new todo' do
       expect { 
         post :create, 
-        todo: {description: "hello"},
+        todo: { description: "hello" },
         format: :json 
       }.to change(Todo, :count).by(1)
     end

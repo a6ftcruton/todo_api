@@ -17,7 +17,9 @@ module Api
       def create
         @todo = Todo.new(todo_params)
         @todo.save
-        respond_with @todo
+        #TODO create custom responder for api (since not redirecting)
+        #http://stackoverflow.com/questions/23582389/rails-nomethoderror-undefined-method-url-for-controller-i-cant-seem-to-res
+        respond_with :api, :v1, @todo
       end
 
       def update
